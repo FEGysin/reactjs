@@ -1,0 +1,15 @@
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.nav-bar ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 95%;
+}
+.nav-bar ul li a {
+  text-decoration: none;
+}
