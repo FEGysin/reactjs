@@ -1,0 +1,13 @@
+.my-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  background-color: black;
+  height: 6rem;
+  width: 100%;
+}
+
+.my-header img {
+  padding-left: 1rem;
+  height: 90px;
+}
