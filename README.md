@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+# Nombre Proyecto
+
+> Breve Descripcion Funcionalidad del Proyecto (Que y Como)
+
+-
+- > Tecnologias Usadas
+-
+- > Listado de Caracteristicas
+- > Gif o Animacion de Funcionameiento
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

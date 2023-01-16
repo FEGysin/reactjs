@@ -10,6 +10,6 @@
   gap: 1rem;
   max-width: 95%;
 }
-.nav-bar ul li a {
-  text-decoration: none;
+.nav__list-items li {
+  list-style: none;
 }
