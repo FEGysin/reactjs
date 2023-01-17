@@ -2,12 +2,12 @@ import React from "react";
 import Button from "../Button/Button.jsx"
 
 export default function Counter(props){
-    const[initValue, onAdd, onRemove] =props
+    const{initValue, stock, onAdd, onRemove} =props
     return(
     <>
-    <Button label="-" onclick={onRemove}/>
+    <Button label="-" onClick={onRemove} disabled={initValue===0}/>
     <span>{initValue}</span>
-     <Button label="+" onclick={onAdd} />
+     <Button label="+" onClick={onAdd} disabled={initValue===stock} />
 </>
     )
 }

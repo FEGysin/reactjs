@@ -1,7 +1,7 @@
 import { useEffect,useState } from "react";
-import {db} from "../firebase/config";
+import {db} from "../../firebase/config";
 import { collection,getDocs } from "firebase/firestore";
-import Card from "../components/Cards/Card"
+import Card from "../../components/Cards/Card"
 import "./Home.css"
 export default function Home(){
 
@@ -14,7 +14,7 @@ const _prodList =[]
 querySnapShot.forEach((product)=>{
     let prodData=product.data()
     prodData= Object.assign(prodData,{id:product.id})
-    _prodList.push(prodData)
+     _prodList.push(prodData)
 })
 setProdList(_prodList)
     })
@@ -28,7 +28,8 @@ setProdList(_prodList)
             prodList.map((product)=>(
             <Card key={product.id}
             data={product}
-            path={`${product.trend}/${product.id}`}
+            
+            path={`/${product.brand}/${product.id}`}
             />
             ))
             ):(<span>...Cargando la Informacion de Nuestros Productos</span>)}

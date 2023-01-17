@@ -8,9 +8,9 @@ function Layout(props){
     return(
         <div>
         <Header/>
-            <NavBar Links={LINKS} />
+        <NavBar Links={LINKS} />
             {children}
-          {/* <Footer/> */}
+        {/* <Footer/> */}
         </div>
     )
 }
