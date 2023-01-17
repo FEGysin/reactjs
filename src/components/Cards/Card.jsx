@@ -30,13 +30,13 @@ export default function Card(props){
 const onAdd =()=>{  
 if(itemsToCart<prodStock && prodStock !==0){
     setItemsToCart(itemsToCart+1)
-    setStock(prodStock-1)}
+    setStock(stock-1)}
 }
 
 const onRemove =()=>{
 if(itemsToCart>0){
     setItemsToCart(itemsToCart-1)
-    setStock(prodStock+1)}
+    setStock(stock+1)}
 }
 const onClickAddtoCart=()=>{
     dispatch({type:"Add-Item", payload:{id,brand,category,subcategory, model, amount:itemsToCart, price, total:itemsToCart*price}})
@@ -46,14 +46,13 @@ const onClickAddtoCart=()=>{
             <div className="card__container" onClick={onClickHandler}>
                 <div className="prod__image"/>
                 <div>
-                     <div>
+                    <div>
                         {/* <img src="" alt="" /> */}
                         <h3>{brand}</h3>
                     </div>
                     <h4 className={`link-to__${model}`} onClick={onClickHandler}>
                         {model}
                     </h4>
-                   
                 </div>
                 <div className="prod-price">
                     <div className="prod-price__value">S {price}</div>
