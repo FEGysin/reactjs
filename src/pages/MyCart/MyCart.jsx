@@ -1,84 +1,88 @@
 
 import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../../firebase/config";
+import { db } from "../../firebase/config";
 import { addDoc, collection } from "firebase/firestore";
 import Button from "../..//components/Button/Button"
 import Context from "../../components/Context/context"
 import CartProd from "../../components/CartProd/CartProd"
 export default function MyCart(){
     const {myStore, dispatch}=useContext(Context)
-    const{tickets}=myStore
+    const {tickets}=myStore
     const navigate = useNavigate()
     const [error, setError]=useState(null)
-    const buyerFormRef=useRef(undefined)
+    const nameFormRef=useRef(undefined)
     const addresFormRef=useRef(undefined)
     const phoneFormRef=useRef(undefined)
     const emailFormRef=useRef(undefined)
 
-    const noTicket=tickets.lenght===0
+    const noTicket=tickets.length===0
 
     if(noTicket) return <span>No Existen Tickets</span>
     
-    const lastTicket=tickets[tickets.lengt-1]
-
+    const lastTicket=tickets[tickets.length-1]
     const onClickGoHomeHandler =()=> navigate("/")
     
     const addTicketOrder =({buyer})=>{
-    let currTicket=myStore.tickets[myStore.tickets.lenght -1]
-    const ticketCollectionRef = collection(db,"tickets")
+     let currTicket=myStore.tickets[myStore.tickets.length -1]
+    currTicket=Object.assign(currTicket,{buyer})
+     const ticketCollectionRef = collection(db,"tickets")
     addDoc(ticketCollectionRef,currTicket).then(({id})=>
     console.log("Ticket Archivado Bajo id:",id))
 }
     const onPurchaseClickHandler=(event)=>{
     event.preventDefault()
-    const customer=buyerFormRef.current.value
+
+    const customer=nameFormRef.current.value
     const custAddres=addresFormRef.current.value
     const custPhone=phoneFormRef.current.value
     const custEmail=emailFormRef.current.value
 
-    if (!customer){setError("Debe Incluir el Nombre del Comprador")}
-    if (!custAddres){setError("Debe Incluir el Domicilio del Comprador")}
-    if (!custPhone){setError("Debe Incluir el Telefono de contacto del Comprador")}
-    if (!custEmail){setError("Debe Incluir el Nombre del Comprador")}
-    buyerFormRef.current.value=""
+    if (!customer){return setError("Debe Incluir el Nombre del Comprador")}
+    if (!custAddres){return setError("Debe Incluir el Domicilio del Comprador")}
+    if (!custPhone){return setError("Debe Incluir el Telefono de contacto del Comprador")}
+    if (!custEmail){return setError("Debe Incluir el Nombre del Comprador")}
+    nameFormRef.current.value=""
     addresFormRef.current.value=""
     phoneFormRef.current.value=""
     emailFormRef.current.value=""
-    dispatch({
-        type:"Create-Ticket",
+  dispatch({type:"Create-Ticket",payload:{ 
         name:customer,
         addres:custAddres,
         phone:custPhone,
-        email:custEmail,
+        email:custEmail,}
     })
-    const customerData={
+        const customerData={
         name:customer,
         addres:custAddres,
         phone:custPhone,
         email:custEmail,
-    }
+    }  
+
+  
     addTicketOrder({buyer:customerData})
+
     setError("")
     }
     return (
         <div>
-            <Button label="Volver al Inicio" onclick={onClickGoHomeHandler}/>
+            <Button label="Volver al Inicio" onClick={onClickGoHomeHandler}/>
+
             <form onSubmit={onPurchaseClickHandler} className="customerTicketForm">
                 <div className="customerTicketData">
                     <label htmlFor="customer">Nombre</label>
                     <input name="customer" type="text" placeholder="Ingrese Nombre del Comprador"
-                      ref={buyerFormRef}/></div>
+                    ref={nameFormRef}/></div>
                 <div className="customerTicketData">
                     <label htmlFor="domicilio">Domicilio</label>
                     <input name="domicilio" type="text" placeholder="Ingrese Domicilio del Comprador" ref={addresFormRef}
                     /></div>
                 <div className="customerTicketData">
-                    <label htmlFor="telefono">Nombre</label>
+                    <label htmlFor="telefono">Telefono</label>
                     <input name="telefono" type="tel" placeholder="Ingrese Telefono de Contacto" ref={phoneFormRef}
                     /></div>
                 <div className="customerTicketData">
-                    <label htmlFor="mail">Nombre</label>
+                    <label htmlFor="mail">E-Mail</label>
                     <input name="mail" type="email" placeholder="Ingrese E-Mail de Facturacion" ref={emailFormRef}
                     /></div>
             </form>
@@ -86,7 +90,7 @@ export default function MyCart(){
                 <div className="errorMsgContainer"><span className="errorMsg">{error}</span></div>
             )}
             <div className="ticketProdsContainer">
-                <div classname="prodsHeader">
+                <div className="prodsHeader">
                     <span><strong>ID</strong></span>
                     <span><strong>Descripcion</strong></span>
                     <span><strong>Cantidad</strong></span>
@@ -100,7 +104,7 @@ export default function MyCart(){
                     <span>{lastTicket.total}</span>
                 </div>
             </div>
-            <Button label="Confirmar Compra" onclick={onPurchaseClickHandler} type="submit" disabled={Boolean(lastTicket.buyer)}/>
+            <Button label="Confirmar Compra" onClick={onPurchaseClickHandler} type="submit" disabled={Boolean(lastTicket.buyer)}/>
         </div>
-      )
+    )
 }

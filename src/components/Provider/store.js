@@ -1,2 +1,4 @@
-const myStore = [];
+const myStore = {
+  tickets: [],
+};
 export default myStore;

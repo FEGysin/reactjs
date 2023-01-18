@@ -6,6 +6,7 @@ import Counter from "../Counter/Counter"
 import Button from "../Button/Button"
 import "./Card.css"
 export default function Card(props){
+    console.log(props);
     const {data,type='default',path}=props;
     const{
         id,
@@ -15,7 +16,7 @@ export default function Card(props){
         price,
         specs,
         stock:prodStock,
-        subcategory,
+        subCategory,
         brand,
         
     }=data;
@@ -39,7 +40,7 @@ if(itemsToCart>0){
     setStock(stock+1)}
 }
 const onClickAddtoCart=()=>{
-    dispatch({type:"Add-Item", payload:{id,brand,category,subcategory, model, amount:itemsToCart, price, total:itemsToCart*price}})
+    dispatch({type:"Add-Item", payload:{id,brand,category,subCategory, model, amount:itemsToCart, price, total:itemsToCart*price}})
 }
     if (type==="default"){
         return(
@@ -77,7 +78,7 @@ const onClickAddtoCart=()=>{
                             {prodSpecs.map((item)=>{
                                 const[name,value]=item
                                 return(
-                                    <div className="">
+                                    <div className="" key={name}>
                                         <span>{name} :</span>
                                         <span><strong>{value}</strong></span>
                                     </div>
